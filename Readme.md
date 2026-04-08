@@ -1,95 +1,199 @@
-# 🎯 Project 1 — Advanced RAG System (Production-Style)
+# 🚀 Advanced RAG System with LangChain & LangGraph
 
-1- User upload documents
-2- Documents are chunked 
-3- Embeddings stored in vector DB
-4- Retriever fetches relevant chunks
-5- LLM generates answer
-6- Return source
+This project implements an **Advanced Retrieval-Augmented Generation
+(RAG) system** using **LangChain**, **LangGraph**, and **ChromaDB**,
+enhanced with **document reranking** and **stateful workflows**.
 
-## System Architecture
+It supports **multi-document ingestion**, **source tracking**,
+**reranking**, and a **LangGraph-based retry workflow**, making it
+closer to **real-world production RAG systems**.
 
-User Uploads PDF/TXT
-        ↓
-Document Loader
-        ↓
-Text Splitter
-        ↓
-Embeddings Model
-        ↓
-Vector Database (Chroma or Qdrant)
-        ↓
-Retriever
-        ↓
-RAG Chain
-        ↓
-Answer + Sources
+------------------------------------------------------------------------
 
-Then later:
+# 🧠 Features
 
-LangGraph Agent
-        ↓
-Retry if retrieval fails
-Ask human if low confidence
-Memory across questions
+✅ Multi-file document ingestion\
+- Supports `.pdf`, `.txt`, `.docx`\
+- Automatically extracts metadata\
+- Tracks document sources
 
+✅ Advanced Retrieval Pipeline\
+- Recursive text chunking\
+- Vector embeddings\
+- Chroma vector database\
+- MMR-based retrieval
 
-## 📦 Tech Stack We Will Use
+✅ Document Reranking\
+- Uses CrossEncoder reranker\
+- Improves answer quality\
+- Reduces irrelevant context
 
-LangChain
-LangGraph
-Chroma (vector DB)
-OpenAI or local model
-RecursiveTextSplitter
-Structured Output
+✅ LangGraph Workflow\
+- Stateful RAG execution\
+- Retry mechanism\
+- Confidence-based routing
 
-#### Later
+✅ Source Attribution\
+- Displays document source\
+- Shows page references
 
-FastAPI (API)
-Streamlit (UI)
-Docker (deployment)
+------------------------------------------------------------------------
 
-## 🧩 Phase 1 — Basic RAG Pipeline (Foundation)
+# 🏗️ System Architecture
 
-Load documents
-Split text
-Create embeddings
-Store in Chroma
-Ask questions
-Return answers
+User Query\
+↓\
+Retriever (Chroma)\
+↓\
+Reranker (CrossEncoder)\
+↓\
+LLM Answer Generation\
+↓\
+Confidence Check\
+↓\
+Retry (if needed)\
+↓\
+Final Answer
 
-## 🧩 Phase 2 — Return Sources (Very Important)
+------------------------------------------------------------------------
 
-Return answer + source chunks
+# 📦 Tech Stack
 
-## 🧩 Phase 3 — Multi-Document Upload
+-   Python\
+-   LangChain\
+-   LangGraph\
+-   ChromaDB\
+-   OpenAI / LLM API\
+-   SentenceTransformers\
+-   CrossEncoder Reranker
 
-pdf,txt,docx
+------------------------------------------------------------------------
 
-## 🧩 Phase 4 — Retrieval Optimization
+# 📁 Project Structure
 
-retriever = vectorstore.as_retriever(
-    search_type="mmr",
-    search_kwargs={
-        "k": 4,
-        "fetch_k": 10
-    }
-)
+advanced_rag/\
+│\
+├── main.py\
+├── load_documents.py\
+├── reranker.py\
+├── graph.py\
+│\
+├── data/\
+│ sample.pdf\
+│\
+├── vector_store/\
+│\
+├── .env\
+├── requirements.txt\
+└── README.md
 
-Top-k tuning
-MMR retrieval = Maximal Marginal Relevance
-        Not just similar chunks
-        But diverse useful chunks
-        Better answers
-        Less repetition
-        More context coverage
+------------------------------------------------------------------------
 
-Metadata filtering
+# ⚙️ Installation
 
-## 🧩 Phase 5 — LangGraph Integration
+``` bash
+git clone https://github.com/YOUR_USERNAME/advanced-rag-langgraph.git
 
-If retrieval fails → retry
-If confidence low → ask human
-If user asks follow-up → memory
+cd advanced-rag-langgraph
+```
 
+Create virtual environment:
 
+``` bash
+python -m venv venv
+
+source venv/bin/activate   # Linux / Mac
+venv\Scripts\activate      # Windows
+```
+
+Install dependencies:
+
+``` bash
+pip install -r requirements.txt
+```
+
+------------------------------------------------------------------------
+
+# 🔑 Environment Setup
+
+Create:
+
+.env
+
+Add your API key:
+
+OPENAI_API_KEY=your_api_key_here
+
+------------------------------------------------------------------------
+
+# ▶️ Usage
+
+Add documents to:
+
+data/
+
+Supported formats:
+
+.pdf\
+.txt\
+.docx
+
+Run:
+
+``` bash
+python main.py
+```
+
+Example query:
+
+What is this document about?
+
+------------------------------------------------------------------------
+
+# 🧪 Example Output
+
+Answer:\
+This document explains the insurance claim process...
+
+Sources:\
+- policy.pdf (page 3)\
+- report.docx (page 2)
+
+Confidence:\
+0.9
+
+------------------------------------------------------------------------
+
+# 🚀 Future Improvements
+
+-   Streamlit UI\
+-   FastAPI deployment\
+-   Redis caching\
+-   Evaluation metrics\
+-   Hybrid search
+
+------------------------------------------------------------------------
+
+# 📊 Skills Demonstrated
+
+-   Retrieval-Augmented Generation (RAG)\
+-   LangChain pipelines\
+-   LangGraph workflows\
+-   Vector databases\
+-   Document reranking\
+-   AI system design
+
+------------------------------------------------------------------------
+
+# 👨‍💻 Author
+
+Your Name
+
+GitHub:\
+https://github.com/YOUR_USERNAME
+
+------------------------------------------------------------------------
+
+# 📜 License
+
+MIT License
